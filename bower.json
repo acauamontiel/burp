@@ -19,6 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "mantis-js": "*"
+    "jquery": "~2.1.1"
   }
 }
