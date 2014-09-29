@@ -10,6 +10,8 @@ var app = window.app || {};
  * @memberof app
  */
 app.bind = function () {
+	'use strict';
+
 	// Document ready
 	document.onreadystatechange = function (e) {
 		if (document.readyState === 'complete') {
@@ -24,6 +26,8 @@ app.bind = function () {
  * @memberof app
  */
 app.init = function () {
+	'use strict';
+
 	this.bind();
 };
 

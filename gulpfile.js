@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	jshint = require('gulp-jshint'),
 	uglify = require('gulp-uglify'),
+	stylish = require('jshint-stylish'),
 	jade = require('gulp-jade'),
 	stylus = require('gulp-stylus'),
 	nib = require('nib'),
@@ -65,7 +66,7 @@ gulp.task('js', function () {
 	if (dev) {
 		gulp.src(path.js.src)
 			.pipe(jshint())
-			.pipe(jshint.reporter('default'))
+			.pipe(jshint.reporter(stylish))
 			.pipe(gulp.dest(path.js.dest));
 	} else {
 		gulp.src(path.js.src)
