@@ -1,16 +1,10 @@
-// Font faces
-@font-face
-	$name = 'Burp'
-	$file = 'burp'
-	$id = 'burp'
-
-	font-family $name
-	font-style normal
-	src url('../font/' + $file + '.eot')
-	src url('../font/' + $file + '.eot?#iefix') format('embedded-opentype'), url('../font/' + $file + '.woff') format('woff'), url('../font/' + $file + '.ttf') format('truetype'), url('../font/' + $file + '.svg#' + $id) format('svg')
+/*
+ * Font-face example
+ */
+font-face('Burp', 'burp')
 
 $f-burp = 'Burp', sans-serif
 
 h1
-	font 10em/1 $f-burp
+	font rem(150)/1 $f-burp
 	text-align center
