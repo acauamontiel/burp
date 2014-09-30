@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
-	jshint = require('gulp-jshint'),
+	amd = require('amd-optimize'),
+	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	jshint = require('gulp-jshint'),
 	stylish = require('jshint-stylish'),
 	jade = require('gulp-jade'),
 	stylus = require('gulp-stylus'),
@@ -12,16 +14,18 @@ var gulp = require('gulp'),
 
 function setPaths () {
 	path = {
-		src: './src/',
-		build: './build/',
-		dist: './dist/'
+		src: __dirname + '/src/',
+		build: __dirname + '/build/',
+		dist: __dirname + '/dist/'
 	};
 
 	path.dest = (dev) ? path.build : path.dist;
 
 	path.js = {
-		watch: path.src + 'js/*.js',
-		src: path.src + 'js/*.js',
+		watch: path.src + 'js/**/*.js',
+		src: path.src + 'js/**/*.js',
+		name: 'app',
+		out: 'app.js',
 		dest: path.dest + 'js/'
 	};
 
@@ -67,9 +71,13 @@ gulp.task('js', function () {
 		gulp.src(path.js.src)
 			.pipe(jshint())
 			.pipe(jshint.reporter(stylish))
+			.pipe(amd(path.js.name))
+			.pipe(concat(path.js.out))
 			.pipe(gulp.dest(path.js.dest));
 	} else {
 		gulp.src(path.js.src)
+			.pipe(amd(path.js.name))
+			.pipe(concat(path.js.out))
 			.pipe(uglify())
 			.pipe(gulp.dest(path.js.dest));
 	}
@@ -124,6 +132,7 @@ gulp.task('setDist', function () {
 	dev = false;
 	setPaths();
 });
+
 gulp.task('run', ['html', 'css', 'js', 'img', 'copy']);
 gulp.task('build', ['setBuild', 'run']);
 gulp.task('dist', ['setDist', 'run']);

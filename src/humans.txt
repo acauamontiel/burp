@@ -8,4 +8,4 @@
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3, JavaScript
-    Mantis.js
+    RequireJS, jQuery

@@ -3,8 +3,10 @@ body
 	height 100%
 
 body
+	display none
 	color $c-white
 	background $c-black url('../img/backgrounds/bart.png') left bottom no-repeat
 
-	&.loaded
+	&.ready
+		display block
 		animation slide $anim-duration-slow

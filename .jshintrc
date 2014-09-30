@@ -17,5 +17,5 @@
   "devel": true,
   "node": true,
   "jquery": true,
-  "predef": ["define"]
+  "predef": ["requirejs", "define"]
 }

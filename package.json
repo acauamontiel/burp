@@ -16,8 +16,10 @@
   "author": "Acauã Montiel <contato@acauamontiel.com.br>",
   "license": "MIT",
   "dependencies": {
+    "amd-optimize": "^0.2.5",
     "browser-sync": "^0.9.1",
     "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
     "gulp-imagemin": "^0.6.2",
     "gulp-jade": "^0.5.0",
     "gulp-jshint": "^1.8.5",
