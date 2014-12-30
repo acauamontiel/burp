@@ -47,7 +47,7 @@ function setPaths () {
 }
 
 gulp.task('html', function () {
-	gulp.src(path.html.src)
+	return gulp.src(path.html.src)
 		.pipe(jade({
 			pretty: dev
 		}))
@@ -55,20 +55,29 @@ gulp.task('html', function () {
 });
 
 gulp.task('css', function () {
-	gulp.src(path.css.src)
+	return gulp.src(path.css.src)
 		.pipe(stylus({
 			use: [nib()],
 			compress: (!dev),
-			errors: true
+			linenos: dev,
+			errors: true,
+			sourcemap: {
+				inline: dev,
+				sourceRoot: '../',
+				basePath: 'css'
+			}
 		}))
-		.pipe(gulp.dest(path.css.dest));
+		.pipe(gulp.dest(path.css.dest))
+		.pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('js', function () {
 	if (dev) {
-		return gulp.src(path.js.src)
+		gulp.src(path.js.watch)
 			.pipe(jshint())
-			.pipe(jshint.reporter(stylish))
+			.pipe(jshint.reporter(stylish));
+
+		return gulp.src(path.js.src)
 			.pipe(transform(function(filename) {
 				return browserify(filename).bundle();
 			}))
@@ -78,14 +87,20 @@ gulp.task('js', function () {
 			.pipe(transform(function(filename) {
 				return browserify(filename).bundle();
 			}))
-			.pipe(uglify())
+			.pipe(uglify({
+				preserveComments: 'some'
+			}))
 			.pipe(gulp.dest(path.js.dest));
 	}
 });
 
 gulp.task('img', function () {
-	gulp.src(path.img.src)
-		.pipe(imagemin())
+	return gulp.src(path.img.src)
+		.pipe(imagemin({
+			progressive: true,
+			interlaced: true,
+			optimizationLevel: 6
+		}))
 		.pipe(gulp.dest(path.img.dest));
 });
 
@@ -100,7 +115,7 @@ gulp.task('copy', function () {
 		'!' + path.src + 'js'
 	];
 
-	gulp.src(files, {
+	return gulp.src(files, {
 		base: path.src
 	})
 	.pipe(gulp.dest(path.dest));
@@ -121,7 +136,7 @@ gulp.task('browser-sync', function () {
 
 gulp.task('watch', function () {
 	gulp.watch([path.html.watch], ['html', browserSync.reload]);
-	gulp.watch([path.css.watch], ['css', browserSync.reload]);
+	gulp.watch([path.css.watch], ['css']);
 	gulp.watch([path.js.watch], ['js', browserSync.reload]);
 	gulp.watch([path.img.watch], ['img', browserSync.reload]);
 });
