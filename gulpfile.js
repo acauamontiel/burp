@@ -1,14 +1,15 @@
-var gulp = require('gulp'),
-	browserify = require('browserify'),
+var browserify = require('browserify'),
+	browserSync = require('browser-sync'),
+	gulp = require('gulp'),
+	imagemin = require('gulp-imagemin'),
+	jade = require('gulp-jade'),
+	jshint = require('gulp-jshint'),
+	nib = require('nib'),
+	plumber = require('gulp-plumber'),
+	stylish = require('jshint-stylish'),
+	stylus = require('gulp-stylus'),
 	transform = require('vinyl-transform'),
 	uglify = require('gulp-uglify'),
-	jshint = require('gulp-jshint'),
-	stylish = require('jshint-stylish'),
-	jade = require('gulp-jade'),
-	stylus = require('gulp-stylus'),
-	nib = require('nib'),
-	imagemin = require('gulp-imagemin'),
-	browserSync = require('browser-sync'),
 	path = {},
 	dev;
 
@@ -48,6 +49,7 @@ function setPaths () {
 
 gulp.task('html', function () {
 	return gulp.src(path.html.src)
+		.pipe(plumber())
 		.pipe(jade({
 			pretty: dev
 		}))
@@ -56,6 +58,7 @@ gulp.task('html', function () {
 
 gulp.task('css', function () {
 	return gulp.src(path.css.src)
+		.pipe(plumber())
 		.pipe(stylus({
 			use: [nib()],
 			compress: (!dev),
@@ -78,6 +81,7 @@ gulp.task('js', function () {
 			.pipe(jshint.reporter(stylish));
 
 		return gulp.src(path.js.src)
+			.pipe(plumber())
 			.pipe(transform(function(filename) {
 				return browserify(filename).bundle();
 			}))
@@ -96,6 +100,7 @@ gulp.task('js', function () {
 
 gulp.task('img', function () {
 	return gulp.src(path.img.src)
+		.pipe(plumber())
 		.pipe(imagemin({
 			progressive: true,
 			interlaced: true,
