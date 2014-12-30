@@ -28,7 +28,7 @@ You can run the app locally by [Gulp](http://gulpjs.com)
 
 #### Default - `gulp`
 
-Run `gulp` to compile and watch Jade, Stylus, JavaScript and optimize images running on [localhost:3002](http://localhost:3002)
+Run `gulp` to compile and watch Jade, Stylus, JavaScript and optimize images running on [localhost:3002](http://localhost:3000)
 
 
 #### Build - `gulp build`
@@ -74,9 +74,6 @@ src/
 │   │   └── *.{jpg|png|svg}
 │   └── *.{jpg|png|svg}
 ├── js/
-│   ├── app/
-│   │   ├── main.js
-│   │   └── *.js
 │   ├── modules/
 │   │   └── *.js
 │   └── app.js
@@ -100,6 +97,6 @@ README.md
 License
 -------
 
-© 2014 [Acauã Montiel](http://acauamontiel.com.br)
+© 2014 - 2015 [Acauã Montiel](http://acauamontiel.com.br)
 
 [MIT License](http://acaua.mit-license.org/)
