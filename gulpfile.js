@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
-	amd = require('amd-optimize'),
-	concat = require('gulp-concat'),
+	browserify = require('browserify'),
+	transform = require('vinyl-transform'),
 	uglify = require('gulp-uglify'),
 	jshint = require('gulp-jshint'),
 	stylish = require('jshint-stylish'),
@@ -23,9 +23,7 @@ function setPaths () {
 
 	path.js = {
 		watch: path.src + 'js/**/*.js',
-		src: path.src + 'js/**/*.js',
-		name: 'app',
-		out: 'app.js',
+		src: path.src + 'js/**/app.js',
 		dest: path.dest + 'js/'
 	};
 
@@ -68,16 +66,18 @@ gulp.task('css', function () {
 
 gulp.task('js', function () {
 	if (dev) {
-		gulp.src(path.js.src)
+		return gulp.src(path.js.src)
 			.pipe(jshint())
 			.pipe(jshint.reporter(stylish))
-			.pipe(amd(path.js.name))
-			.pipe(concat(path.js.out))
+			.pipe(transform(function(filename) {
+				return browserify(filename).bundle();
+			}))
 			.pipe(gulp.dest(path.js.dest));
 	} else {
-		gulp.src(path.js.src)
-			.pipe(amd(path.js.name))
-			.pipe(concat(path.js.out))
+		return gulp.src(path.js.src)
+			.pipe(transform(function(filename) {
+				return browserify(filename).bundle();
+			}))
 			.pipe(uglify())
 			.pipe(gulp.dest(path.js.dest));
 	}
@@ -100,8 +100,10 @@ gulp.task('copy', function () {
 		'!' + path.src + 'js'
 	];
 
-	gulp.src(files, {base: path.src})
-		.pipe(gulp.dest(path.dest));
+	gulp.src(files, {
+		base: path.src
+	})
+	.pipe(gulp.dest(path.dest));
 });
 
 gulp.task('browser-sync', function () {
@@ -118,16 +120,17 @@ gulp.task('browser-sync', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch([path.html.watch], ['html']);
-	gulp.watch([path.css.watch], ['css']);
-	gulp.watch([path.js.watch], ['js']);
-	gulp.watch([path.img.watch], ['img']);
+	gulp.watch([path.html.watch], ['html', browserSync.reload]);
+	gulp.watch([path.css.watch], ['css', browserSync.reload]);
+	gulp.watch([path.js.watch], ['js', browserSync.reload]);
+	gulp.watch([path.img.watch], ['img', browserSync.reload]);
 });
 
 gulp.task('setBuild', function () {
 	dev = true;
 	setPaths();
 });
+
 gulp.task('setDist', function () {
 	dev = false;
 	setPaths();

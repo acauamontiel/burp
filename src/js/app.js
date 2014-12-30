@@ -1,3 +1,3 @@
 'use strict';
 
-requirejs(['app/main']);
+require('./modules/init.js')();
