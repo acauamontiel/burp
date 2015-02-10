@@ -2,7 +2,7 @@
 
 > A modern and as fast as a burp front-end template
 
-[![NPM version](https://badge.fury.io/js/gulp.svg)](http://badge.fury.io/js/gulp) [![Bower version](https://badge.fury.io/bo/mantis-js.svg)](http://badge.fury.io/bo/mantis-js)
+[![NPM version](https://badge.fury.io/js/gulp.svg)](http://badge.fury.io/js/gulp)
 
 ---
 
@@ -80,13 +80,15 @@ src/
 ├── .htaccess
 ├── browserconfig.xml
 ├── favicon.ico
-└── humans.txt
+├── humans.txt
+└── manifest.json
 .bowerrc
 .editorconfig
 .gitattributes
 .gitignore
 .jshintrc
 bower.json
+content.json
 gulpfile.js
 logo.png
 package.json
