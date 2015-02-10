@@ -1,5 +1,6 @@
 var browserify = require('browserify'),
 	browserSync = require('browser-sync'),
+	data = require('gulp-data'),
 	gulp = require('gulp'),
 	imagemin = require('gulp-imagemin'),
 	jade = require('gulp-jade'),
@@ -10,6 +11,7 @@ var browserify = require('browserify'),
 	stylus = require('gulp-stylus'),
 	transform = require('vinyl-transform'),
 	uglify = require('gulp-uglify'),
+	contentFile = require('./content.json'),
 	path = {},
 	dev;
 
@@ -50,6 +52,9 @@ function setPaths () {
 gulp.task('html', function () {
 	return gulp.src(path.html.src)
 		.pipe(plumber())
+		.pipe(data(function (file) {
+			return contentFile;
+		}))
 		.pipe(jade({
 			pretty: dev
 		}))
