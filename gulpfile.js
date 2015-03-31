@@ -1,51 +1,51 @@
-var browserify = require('browserify'),
+var browserify  = require('browserify'),
 	browserSync = require('browser-sync'),
-	data = require('gulp-data'),
-	gulp = require('gulp'),
-	imagemin = require('gulp-imagemin'),
-	jade = require('gulp-jade'),
-	jshint = require('gulp-jshint'),
-	nib = require('nib'),
-	plumber = require('gulp-plumber'),
-	stylish = require('jshint-stylish'),
-	stylus = require('gulp-stylus'),
-	transform = require('vinyl-transform'),
-	uglify = require('gulp-uglify'),
+	data        = require('gulp-data'),
+	gulp        = require('gulp'),
+	imagemin    = require('gulp-imagemin'),
+	jade        = require('gulp-jade'),
+	jshint      = require('gulp-jshint'),
+	nib         = require('nib'),
+	plumber     = require('gulp-plumber'),
+	stylish     = require('jshint-stylish'),
+	stylus      = require('gulp-stylus'),
+	transform   = require('vinyl-transform'),
+	uglify      = require('gulp-uglify'),
 	contentFile = require('./content.json'),
-	path = {},
+	path        = {},
 	dev;
 
 function setPaths () {
 	path = {
-		src: __dirname + '/src/',
-		build: __dirname + '/build/',
-		dist: __dirname + '/dist/'
+		src   : __dirname + '/src/',
+		build : __dirname + '/build/',
+		dist  : __dirname + '/dist/'
 	};
 
 	path.dest = (dev) ? path.build : path.dist;
 
 	path.js = {
-		watch: path.src + 'js/**/*.js',
-		src: path.src + 'js/**/app.js',
-		dest: path.dest + 'js/'
+		watch : path.src + 'js/**/*.js',
+		src   : path.src + 'js/**/app.js',
+		dest  : path.dest + 'js/'
 	};
 
 	path.css = {
-		watch: path.src + 'css/**/*.styl',
-		src: path.src + 'css/style.styl',
-		dest: path.dest + 'css/'
+		watch : path.src + 'css/**/*.styl',
+		src   : path.src + 'css/style.styl',
+		dest  : path.dest + 'css/'
 	};
 
 	path.html = {
-		watch: path.src + 'html/**/*.jade',
-		src: path.src + 'html/*.jade',
-		dest: path.dest
+		watch : path.src + 'html/**/*.jade',
+		src   : path.src + 'html/*.jade',
+		dest  : path.dest
 	};
 
 	path.img = {
-		watch: path.src + 'img/**/*',
-		src: path.src + 'img/**/*',
-		dest: path.dest + 'img/'
+		watch : path.src + 'img/**/*',
+		src   : path.src + 'img/**/*',
+		dest  : path.dest + 'img/'
 	};
 }
 
@@ -70,9 +70,9 @@ gulp.task('css', function () {
 			linenos: dev,
 			errors: true,
 			sourcemap: {
-				inline: dev,
-				sourceRoot: '../',
-				basePath: 'css'
+				inline     : dev,
+				sourceRoot : '../',
+				basePath   : 'css'
 			}
 		}))
 		.pipe(gulp.dest(path.css.dest))
@@ -107,9 +107,9 @@ gulp.task('img', function () {
 	return gulp.src(path.img.src)
 		.pipe(plumber())
 		.pipe(imagemin({
-			progressive: true,
-			interlaced: true,
-			optimizationLevel: 6
+			progressive       : true,
+			interlaced        : true,
+			optimizationLevel : 6
 		}))
 		.pipe(gulp.dest(path.img.dest));
 });
@@ -134,9 +134,9 @@ gulp.task('copy', function () {
 gulp.task('browser-sync', function () {
 	browserSync.init([
 		path.html.dest + '*.html',
-		path.css.dest + '*.css',
-		path.js.dest + '*.js',
-		path.img.dest + '**/*'
+		path.css.dest  + '*.css',
+		path.js.dest   + '*.js',
+		path.img.dest  + '**/*'
 	], {
 		server: {
 			baseDir: path.dest
@@ -145,10 +145,10 @@ gulp.task('browser-sync', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch([path.html.watch], ['html', browserSync.reload]);
-	gulp.watch([path.css.watch], ['css']);
-	gulp.watch([path.js.watch], ['js', browserSync.reload]);
-	gulp.watch([path.img.watch], ['img', browserSync.reload]);
+	gulp.watch([path.html.watch] , ['html'   , browserSync.reload]);
+	gulp.watch([path.css.watch]  , ['css']);
+	gulp.watch([path.js.watch]   , ['js'     , browserSync.reload]);
+	gulp.watch([path.img.watch]  , ['img'    , browserSync.reload]);
 });
 
 gulp.task('setBuild', function () {
@@ -161,7 +161,7 @@ gulp.task('setDist', function () {
 	setPaths();
 });
 
-gulp.task('run', ['html', 'css', 'js', 'img', 'copy']);
-gulp.task('build', ['setBuild', 'run']);
-gulp.task('dist', ['setDist', 'run']);
-gulp.task('default', ['build', 'browser-sync', 'watch']);
+gulp.task('run'     , ['html', 'css', 'js', 'img' , 'copy']);
+gulp.task('build'   , ['setBuild', 'run']);
+gulp.task('dist'    , ['setDist', 'run']);
+gulp.task('default' , ['build', 'browser-sync' , 'watch']);
