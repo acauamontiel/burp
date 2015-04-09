@@ -3,6 +3,7 @@
 > A modern and as fast as a burp front-end template
 
 [![NPM version](https://badge.fury.io/js/gulp.svg)](http://badge.fury.io/js/gulp)
+[![Join the chat at https://gitter.im/acauamontiel/burp](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/acauamontiel/burp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ---
 
