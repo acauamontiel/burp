@@ -9,8 +9,8 @@ var browserify  = require('browserify'),
 	plumber     = require('gulp-plumber'),
 	stylish     = require('jshint-stylish'),
 	stylus      = require('gulp-stylus'),
-	transform   = require('vinyl-transform'),
 	uglify      = require('gulp-uglify'),
+	source      = require('vinyl-source-stream'),
 	contentFile = require('./content.json'),
 	path        = {},
 	dev;
@@ -26,7 +26,7 @@ function setPaths () {
 
 	path.js = {
 		watch : path.src + 'js/**/*.js',
-		src   : path.src + 'js/**/app.js',
+		src   : path.src + 'js/app.js',
 		dest  : path.dest + 'js/'
 	};
 
@@ -43,8 +43,16 @@ function setPaths () {
 	};
 
 	path.img = {
-		watch : path.src + 'img/**/*',
-		src   : path.src + 'img/**/*',
+		watch : [
+            path.src + 'img/**/*.jpg',
+            path.src + 'img/**/*.png',
+            path.src + 'img/**/*.gif'
+        ],
+		src   : [
+            path.src + 'img/**/*.jpg',
+            path.src + 'img/**/*.png',
+            path.src + 'img/**/*.gif'
+        ],
 		dest  : path.dest + 'img/'
 	};
 }
@@ -85,17 +93,14 @@ gulp.task('js', function () {
 			.pipe(jshint())
 			.pipe(jshint.reporter(stylish));
 
-		return gulp.src(path.js.src)
-			.pipe(plumber())
-			.pipe(transform(function(filename) {
-				return browserify(filename).bundle();
-			}))
+		return browserify(path.js.src)
+			.bundle()
+			.pipe(source('app.js'))
 			.pipe(gulp.dest(path.js.dest));
 	} else {
-		return gulp.src(path.js.src)
-			.pipe(transform(function(filename) {
-				return browserify(filename).bundle();
-			}))
+		return browserify(path.js.src)
+			.bundle()
+			.pipe(source('app.js'))
 			.pipe(uglify({
 				preserveComments: 'some'
 			}))
@@ -132,12 +137,7 @@ gulp.task('copy', function () {
 });
 
 gulp.task('browser-sync', function () {
-	browserSync.init([
-		path.html.dest + '*.html',
-		path.css.dest  + '*.css',
-		path.js.dest   + '*.js',
-		path.img.dest  + '**/*'
-	], {
+	browserSync.init({
 		server: {
 			baseDir: path.dest
 		}
