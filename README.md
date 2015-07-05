@@ -2,8 +2,6 @@
 
 > A modern and as fast as a burp front-end template
 
-[![NPM version](https://badge.fury.io/js/gulp.svg)](http://badge.fury.io/js/gulp)
-
 ---
 
 
@@ -28,7 +26,7 @@ You can run the app locally by [Gulp](http://gulpjs.com)
 
 #### Default - `gulp`
 
-Run `gulp` to compile and watch Jade, Stylus, JavaScript and optimize images running on [localhost:3002](http://localhost:3000)
+Run `gulp` to compile and watch Jade, Stylus, JavaScript and optimize images running on [localhost:3000](http://localhost:3000)
 
 
 #### Build - `gulp build`
