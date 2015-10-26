@@ -22,7 +22,7 @@ rem(u)
  * Font-face mixin
  */
 font-face($family, $file, $weight = 'normal')
-	$font-url = '../font/'
+	$font-url = '/font/'
 
 	@font-face
 		font-family $family
@@ -30,6 +30,21 @@ font-face($family, $file, $weight = 'normal')
 		font-style normal
 		src url($font-url + $file + '.eot')
 		src url($font-url + $file + '.eot?#iefix') format('embedded-opentype'), url($font-url + $file + '.woff') format('woff'), url($font-url + $file + '.woff2') format('woff2'), url($font-url + $file + '.ttf') format('truetype'), url($font-url + $file + '.svg#' + $file) format('svg')
+
+
+/*
+ * Font-size fallback
+ */
+font-size(value)
+	if typeof(value) is 'unit'
+		if unit(value) is ''
+			font-size unit(value, 'px')
+			font-size rem(value)
+		else
+			font-size value
+
+	else
+		font-size value
 
 
 /*
@@ -47,3 +62,19 @@ position()
 		transform translateZ(0)
 	else
 		position arguments
+
+
+/*
+ * Size mixin
+ */
+size($width, $height = $width)
+	width $width
+	height $height
+
+min-size($width, $height = $width)
+	min-width $width
+	min-height $height
+
+max-size($width, $height = $width)
+	max-width $width
+	max-height $height

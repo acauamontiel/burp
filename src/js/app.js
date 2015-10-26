@@ -1,3 +1,8 @@
-'use strict';
+import App from './app/index';
 
-require('./modules/init.js')();
+var app = new App();
+
+app.init(function () {
+	console.info('App started!');
+	console.log(this);
+});
