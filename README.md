@@ -72,6 +72,9 @@ src/
 │   │   └── *.{jpg|png|svg}
 │   └── *.{jpg|png|svg}
 ├── js/
+│   ├── app/
+│   │   ├── index.js
+│   │   └── *.js
 │   ├── modules/
 │   │   └── *.js
 │   └── app.js
@@ -88,6 +91,7 @@ src/
 bower.json
 content.json
 gulpfile.js
+gulpfile.paths.js
 logo.png
 package.json
 README.md

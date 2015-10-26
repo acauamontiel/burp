@@ -1,33 +1,35 @@
 {
-	"name": "burp",
-	"version": "1.4.2",
-	"description": "A modern and as fast as a burp front-end template",
-	"main": "gulpfile.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:acauamontiel/burp.git"
-	},
-	"keywords": [
-		"template"
-	],
-	"author": "Acauã Montiel <contato@acauamontiel.com.br>",
-	"license": "MIT",
-	"dependencies": {
-		"browser-sync": "^2.7.13",
-		"browserify": "^10.2.4",
-		"gulp": "^3.9.0",
-		"gulp-data": "^1.2.0",
-		"gulp-imagemin": "^2.3.0",
-		"gulp-jade": "^1.0.1",
-		"gulp-jshint": "^1.11.2",
-		"gulp-plumber": "^1.0.1",
-		"gulp-stylus": "^2.0.5",
-		"gulp-uglify": "^1.2.0",
-		"jshint-stylish": "^2.0.1",
-		"nib": "^1.1.0",
-		"vinyl-source-stream": "^1.1.0"
-	}
+  "name": "burp",
+  "version": "1.5.0",
+  "description": "A modern and as fast as a burp front-end template",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:acauamontiel/burp.git"
+  },
+  "keywords": [
+    "template"
+  ],
+  "author": "Acauã Montiel <contato@acauamontiel.com.br>",
+  "license": "MIT",
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-data": "^1.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-load-plugins": "^1.0.0",
+    "gulp-newer": "^0.5.1",
+    "gulp-size": "^2.0.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.1.0",
+    "gulp-uglify": "^1.4.2",
+    "nib": "^1.1.0"
+  }
 }
