@@ -90,7 +90,7 @@ src/
 .jshintrc
 bower.json
 content.json
-gulpfile.js
+gulpfile.babel.js
 gulpfile.paths.js
 logo.png
 package.json

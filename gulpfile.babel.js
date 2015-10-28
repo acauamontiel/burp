@@ -1,13 +1,28 @@
-var $ = require('gulp-load-plugins')(),
-	browserSync = require('browser-sync').create(),
-	gulp = require('gulp'),
-	nib = require('nib'),
-	contentFile = require('./content.json'),
-	path = require('./gulpfile.paths.js'),
-	dev = true;
+/**
+ * BURP Template
+ * https://github.com/acauamontiel/burp
+ *
+ * Copyright 2014 - 2015 Acaua Montiel (@acauamontiel)
+ * Released under the MIT license (http://acaua.mit-license.org)
+ */
 
-gulp.task('html', function () {
-	return gulp.src(path.html.src)
+'use strict';
+
+import gulp from 'gulp';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import browserSync from 'browser-sync';
+import nib from 'nib';
+import contentFile from './content.json';
+import path from './gulpfile.paths.js';
+
+const $ = gulpLoadPlugins();
+const server = browserSync.create();
+const reload = server.reload;
+
+var dev = true;
+
+gulp.task('html', () =>
+	gulp.src(path.html.src)
 		.pipe($.data(function (file) {
 			return contentFile;
 		}))
@@ -15,11 +30,11 @@ gulp.task('html', function () {
 			pretty: dev
 		}))
 		.pipe(gulp.dest(path.html.dest))
-		.pipe($.size({title: 'html'}));
-});
+		.pipe($.size({title: 'html'}))
+);
 
-gulp.task('css', function () {
-	return gulp.src(path.css.src)
+gulp.task('css', () =>
+	gulp.src(path.css.src)
 		.pipe($.stylus({
 			use: [nib()],
 			compress: !dev,
@@ -33,11 +48,11 @@ gulp.task('css', function () {
 		}))
 		.pipe(gulp.dest(path.css.dest))
 		.pipe(browserSync.stream({match: '**/*.css'}))
-		.pipe($.size({title: 'css'}));
-});
+		.pipe($.size({title: 'css'}))
+);
 
-gulp.task('js', function () {
-	return gulp.src(path.js.src)
+gulp.task('js', () =>
+	gulp.src(path.js.src)
 		.pipe($.sourcemaps.init())
 		.pipe($.browserify({
 			transform: [
@@ -48,22 +63,22 @@ gulp.task('js', function () {
 		.pipe($.if(!dev, $.uglify({
 			preserveComments: 'some'
 		})))
-		.pipe(gulp.dest(path.js.dest));
-});
+		.pipe(gulp.dest(path.js.dest))
+);
 
-gulp.task('img', function () {
-	return gulp.src(path.img.src)
+gulp.task('img', () =>
+	gulp.src(path.img.src)
 		.pipe($.newer(path.img.dest))
 		.pipe($.imagemin({
 			progressive: true,
 			interlaced: true
 		}))
 		.pipe(gulp.dest(path.img.dest))
-		.pipe($.size({title: 'img'}));
-});
+		.pipe($.size({title: 'img'}))
+);
 
-gulp.task('copy', function () {
-	var files = [
+gulp.task('copy', () => {
+	const files = [
 		path.src + '*',
 		path.src + 'img/**/*.svg',
 		path.src + 'font/**',
@@ -80,24 +95,24 @@ gulp.task('copy', function () {
 	.pipe($.size({title: 'copy'}));
 });
 
-gulp.task('serve', function () {
-	browserSync.init({
+gulp.task('serve', () =>
+	server.init({
 		server: {
 			baseDir: path.dest
 		}
-	});
-});
+	})
+);
 
 gulp.task('watch', function () {
-	gulp.watch(path.html.watch, ['html', browserSync.reload]);
+	gulp.watch(path.html.watch, ['html', reload]);
 	gulp.watch(path.css.watch, ['css']);
-	gulp.watch(path.js.watch, ['js', browserSync.reload]);
-	gulp.watch(path.img.watch, ['img', browserSync.reload]);
+	gulp.watch(path.js.watch, ['js', reload]);
+	gulp.watch(path.img.watch, ['img', reload]);
 });
 
 gulp.task('default', ['build', 'serve', 'watch']);
-gulp.task('build', ['html', 'css', 'js', 'img', 'copy']);
-gulp.task('dist', function () {
+gulp.task('build', ['html', 'css', 'js', 'copy']);
+gulp.task('dist', () => {
 	dev = false;
 	gulp.start('build');
 });

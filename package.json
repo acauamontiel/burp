@@ -16,6 +16,7 @@
   "author": "Acauã Montiel <contato@acauamontiel.com.br>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^5.8.30",
     "babelify": "^6.4.0",
     "browser-sync": "^2.9.11",
     "gulp": "^3.9.0",
