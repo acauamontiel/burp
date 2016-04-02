@@ -1,3 +1,5 @@
+### NOTE: This project is no longer maintained in favor of [Mantis Starter](https://github.com/mantis-stack/mantis-starter) which was made on top of Burp
+
 ![Burp](logo.png)
 
 > A modern and as fast as a burp front-end template
